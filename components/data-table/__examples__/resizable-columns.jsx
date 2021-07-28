@@ -3,29 +3,28 @@ import React from 'react';
 import DataTable from '~/components/data-table'; // `~` is replaced with design-system-react at runtime
 import DataTableColumn from '~/components/data-table/column';
 import DataTableCell from '~/components/data-table/cell';
+import DataTableInteractiveLink from '~/components/data-table/interactive-link';
 import IconSettings from '~/components/icon-settings';
 
-const CustomDataTableCell = ({ children, ...props }) => (
+const CustomDataTableCellKeyboardNavigation = ({ children, ...props }) => (
 	<DataTableCell {...props}>
-		<a
-			href="#"
-			onClick={(event) => {
-				event.preventDefault();
-			}}
-		>
-			{children}
-		</a>
+				<DataTableInteractiveLink
+          onClick={(event) => {
+            event.preventDefault();
+        }}>
+          {children}
+				</DataTableInteractiveLink>
 	</DataTableCell>
 );
-CustomDataTableCell.displayName = DataTableCell.displayName;
+CustomDataTableCellKeyboardNavigation.displayName = DataTableCell.displayName;
 
-const columns = [
+const columnsKeyboardNavigation = [
 	<DataTableColumn
 		key="opportunity"
 		label="Opportunity Name"
 		property="opportunityName"
 	>
-		<CustomDataTableCell />
+		<CustomDataTableCellKeyboardNavigation />
 	</DataTableColumn>,
 
 	<DataTableColumn
@@ -43,7 +42,7 @@ const columns = [
 	<DataTableColumn key="amount" label="Amount" property="amount" />,
 
 	<DataTableColumn key="contact" label="Contact" property="contact">
-		<CustomDataTableCell />
+		<CustomDataTableCellKeyboardNavigation />
 	</DataTableColumn>,
 ];
 
@@ -90,29 +89,7 @@ class Example extends React.Component {
 			<React.Fragment>
 				<React.Fragment>
 					<h3 className="slds-text-heading_medium slds-m-vertical_medium">
-						Fully resizable
-					</h3>
-					<IconSettings iconPath="/assets/icons">
-						<div style={{ overflow: 'auto' }}>
-							<DataTable
-								items={this.state.items}
-								id="DataTableExample-1-resizable-cols"
-								resizable
-								resizerOptions={{
-									resizeMode: 'overflow',
-									onResize: (columnsResized) => {
-										console.log(JSON.stringify(columnsResized));
-									},
-								}}
-							>
-								{columns}
-							</DataTable>
-						</div>
-					</IconSettings>
-				</React.Fragment>
-				<React.Fragment>
-					<h3 className="slds-text-heading_medium slds-m-vertical_medium">
-						Columns 0 and 3 fixed
+						Resizeable: Columns 0 and 3 fixed
 					</h3>
 					<IconSettings iconPath="/assets/icons">
 						<div style={{ overflow: 'auto' }}>
@@ -120,8 +97,10 @@ class Example extends React.Component {
 								items={this.state.items}
 								id="DataTableExample-2-resizable-cols"
 								resizable
+                fixedHeader
 								fixedLayout
-								resizerOptions={{
+                keyboardNavigation
+                resizerOptions={{
 									resizeMode: 'overflow',
 									onResize: (columnsResized) => {
 										console.log(JSON.stringify(columnsResized));
@@ -129,14 +108,14 @@ class Example extends React.Component {
 									disabledColumns: [0, 3],
 								}}
 							>
-								{columns}
+								{columnsKeyboardNavigation}
 							</DataTable>
 						</div>
 					</IconSettings>
 				</React.Fragment>
 				<React.Fragment>
 					<h3 className="slds-text-heading_medium slds-m-vertical_medium">
-						With fixed header
+            Resizeable: With fixed header
 					</h3>
 					<IconSettings iconPath="/assets/icons">
 						<div style={{ overflow: 'auto' }}>
@@ -145,6 +124,7 @@ class Example extends React.Component {
 								id="DataTableExample-3-resizable-cols"
 								fixedHeader
 								fixedLayout
+                keyboardNavigation
 								resizable
 								resizerOptions={{
 									resizeMode: 'overflow',
@@ -153,7 +133,7 @@ class Example extends React.Component {
 									},
 								}}
 							>
-								{columns}
+								{columnsKeyboardNavigation}
 							</DataTable>
 						</div>
 					</IconSettings>
@@ -178,7 +158,7 @@ class Example extends React.Component {
 									},
 								}}
 							>
-								{columns}
+								{columnsKeyboardNavigation}
 							</DataTable>
 						</div>
 					</IconSettings>
