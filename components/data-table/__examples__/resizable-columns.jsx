@@ -6,7 +6,7 @@ import DataTableCell from '~/components/data-table/cell';
 import DataTableInteractiveLink from '~/components/data-table/interactive-link';
 import IconSettings from '~/components/icon-settings';
 
-const CustomDataTableCellKeyboardNavigation = ({ children, ...props }) => (
+const CustomDataTableCell = ({ children, ...props }) => (
 	<DataTableCell {...props}>
 				<DataTableInteractiveLink
           onClick={(event) => {
@@ -16,15 +16,15 @@ const CustomDataTableCellKeyboardNavigation = ({ children, ...props }) => (
 				</DataTableInteractiveLink>
 	</DataTableCell>
 );
-CustomDataTableCellKeyboardNavigation.displayName = DataTableCell.displayName;
+CustomDataTableCell.displayName = CustomDataTableCell.displayName;
 
-const columnsKeyboardNavigation = [
+const columns = [
 	<DataTableColumn
 		key="opportunity"
 		label="Opportunity Name"
 		property="opportunityName"
 	>
-		<CustomDataTableCellKeyboardNavigation />
+		<CustomDataTableCell />
 	</DataTableColumn>,
 
 	<DataTableColumn
@@ -42,7 +42,7 @@ const columnsKeyboardNavigation = [
 	<DataTableColumn key="amount" label="Amount" property="amount" />,
 
 	<DataTableColumn key="contact" label="Contact" property="contact">
-		<CustomDataTableCellKeyboardNavigation />
+		<CustomDataTableCell />
 	</DataTableColumn>,
 ];
 
@@ -190,10 +190,7 @@ class Example extends React.Component {
 							<DataTable
 								items={this.state.items}
 								id="DataTableExample-4-resizable-cols"
-								fixedHeader
-								fixedLayout
 								resizable
-								keyboardNavigation
 								resizerOptions={{
 									resizeMode: 'overflow',
 									onResize: (columnsResized) => {
@@ -201,7 +198,7 @@ class Example extends React.Component {
 									},
 								}}
 							>
-								{columnsKeyboardNavigation}
+								{columns}
 							</DataTable>
 						</div>
 					</IconSettings>
@@ -216,9 +213,6 @@ class Example extends React.Component {
 								items={this.state.items}
 								id="DataTableExample-2-resizable-cols"
 								resizable
-                fixedHeader
-								fixedLayout
-                keyboardNavigation
                 resizerOptions={{
 									resizeMode: 'overflow',
 									onResize: (columnsResized) => {
@@ -227,7 +221,7 @@ class Example extends React.Component {
 									disabledColumns: [0, 3],
 								}}
 							>
-								{columnsKeyboardNavigation}
+								{columns}
 							</DataTable>
 						</div>
 					</IconSettings>
